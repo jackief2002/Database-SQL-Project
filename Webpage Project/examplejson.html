@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+	<head>
+        <style>
+            body{
+                background-color:pink;
+            }
+            .card {
+								font-family: "Georgia";
+
+				text-align: center;
+                background-color:lightgrey;
+                padding: 10px;
+                margin:10px;
+                display:inline-block;
+                border-radius:5px;
+                box-shadow:2px 2px 2px darkgreen;
+                width:200px;
+            }
+			img {
+  				width:200px;
+ 				height:300px;
+			}
+        </style>
+
+		<script
+			src="https://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous"></script>
+			
+		<script>
+			var datab;
+			var datam;
+			var datax;
+			function getData(){
+				$.get("http://10.79.164.121:8500/umathurman", function(results1){
+					datab = JSON.parse(results1);
+				});
+
+				$.get("http://10.79.164.121:8500/fantasy", function(results2){
+					datam = JSON.parse(results2);
+				});
+				$.get("http://10.79.164.121:8500/books", function(results3){
+					dataj = JSON.parse(results3);
+				});
+				$.get("http://10.79.164.121:8500/movies", function(results4){
+					datap = JSON.parse(results4);
+				});
+			}
+			
+			//Books			
+			function getBooks(){
+				var build ="";
+				var output = document.getElementById("output");
+				for (var x=0; x<dataj.length; x++){
+					build+= "<div class='card'>" + "<h2>" + dataj[x].Title + "</h2>" + "<br>";
+					build+= "<p>" + "by " + dataj[x].Author + "</p>" + "<br>";
+					build+= "<p>" + "<img src=" + dataj[x].BookCover + ">" + "</p>" + "<br>";
+					build+= "<p>" + dataj[x].PublicationYear + "</p>" + "<br>";
+					build+= "<p>" + dataj[x].Genres + "</p>" + "<br>";
+					build+= "<p>" + dataj[x].Summary + "</p>" + "</div>";
+				}
+				output.innerHTML = build;
+			}
+
+			function getMovies3(){
+				var build ="";
+				var output = document.getElementById("output");
+				for (var x=0; x<datap.length; x++){
+					build+= "<div class='card'>" + "<h2>"+ datap[x].Title + "</h2>" + "<br>";
+					build+= "<p>" + "directed by " + datap[x].Director + "</p>" + "<br>";
+					build+= "<p>" +"<img src=" + datap[x].MovieCover + ">" + "</p>" + "<br>";
+					build+= "<p>" + "with " + datap[x].Actors + "</p>" + "<br>";
+					build+= "<p>" + datap[x].ReleaseDate + "</p>" + "</div>";
+				}
+				output.innerHTML = build;
+			}
+			
+
+			//Uma
+			function getMovies(){
+				var build ="";
+				var output = document.getElementById("output");
+				for (var x=0; x<datab.length; x++){
+					build+= "<div class='card'>" + "<h2>"+ datab[x].Title + "</h2>" + "<br>";
+					build+= "<p>" + "directed by " + datab[x].Director + "</p>" + "<br>";
+					build+= "<p>" + "<img src=" + datab[x].MovieCover + ">" + "</p>" + "<br>";
+					build+= "<p>" + "with " + datab[x].Actors + "</p>" + "<br>";
+					build+= "<p>" + datab[x].ReleaseDate + "</p>" + "</div>";
+				}
+				output.innerHTML = build;
+			}
+
+			//Fantasy
+			function getMovies2(){
+				var build ="";
+				var output = document.getElementById("output");
+				for (var x=0; x<datam.length; x++){
+					build+= "<div class='card'>" + "<h2>"+ datam[x].Title + "</h2>" + "<br>";
+					build+= "<p>" + "directed by " + datam[x].Director + "</p>" + "<br>";
+					build+= "<p>" +"<img src=" + datam[x].MovieCover + ">" + "</p>" + "<br>";
+					build+= "<p>" + "with " + datam[x].Actors + "</p>" + "<br>";
+					build+= "<p>" + datam[x].ReleaseDate + "</p>" + "</div>";
+				}
+				output.innerHTML = build;
+			}
+
+			
+
+
+			
+			
+		</script>
+	</head>
+	
+	<body onload="getData()">
+		<input type="button" onclick="getMovies()" value="Uma">
+		<input type="button" onclick="getMovies2()" value="Fantasy">
+		<input type="button" onclick="getMovies3()" value="Movies">		
+		<input type="button" onclick="getBooks()" value="Books">		
+		
+		<div id="output"></div>
+	<body>
+
+</html>
